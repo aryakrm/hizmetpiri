@@ -16,6 +16,10 @@
         li{
             color: white;
             font-weight: 600;
+            &:hover{
+                cursor: pointer;
+                color: #d4af37;
+            }
         }
         .nav-btn{
             border: 1px solid white;
@@ -25,6 +29,9 @@
             justify-content: center;
             align-items: center;
             gap: 5px;
+            &:hover{
+                border-color: #d4af37;
+            }
         }
     }
 }

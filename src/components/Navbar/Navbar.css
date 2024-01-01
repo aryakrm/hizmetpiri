@@ -1,0 +1,26 @@
+.Navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 5rem;
+  background-color: #940370;
+}
+.Navbar img {
+  width: 4rem;
+}
+.Navbar .nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.Navbar .nav-links li {
+  color: white;
+  font-weight: 600;
+}
+.Navbar .nav-links .nav-btn {
+  border: 1px solid white;
+  padding: 8px;
+  border-radius: 10px;
+}/*# sourceMappingURL=Navbar.css.map */

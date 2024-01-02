@@ -7,8 +7,8 @@ const useTaskStore = create((set) => ({
   setSubOptions: (subOptions) => set({ subOptions }),
 
   // Step 2: Budget
-  minBudget: 0,
-  maxBudget: 0,
+  minBudget: null,
+  maxBudget: null,
   setBudget: (minBudget, maxBudget) => set({ minBudget, maxBudget }),
 
   // Step 3: Duration
@@ -28,10 +28,12 @@ const useTaskStore = create((set) => ({
   surname: '',
   email: '',
   telNumber: '',
+  pass: '',
   setName: (name) => set({ name }),
   setSurname: (surname) => set({ surname }),
   setEmail: (email) => set({ email }),
   setTelNumber: (telNumber) => set({ telNumber }),
+  setPass: (pass) => set({ pass }),
 
   // Step 7: Payment
   paymentMethod: '',

@@ -9,7 +9,8 @@ import { LuClipboardEdit } from "react-icons/lu";
 function Navbar() {
   return (
     <nav className='Navbar' >
-      <img src="/assets/hp2.png" alt="Hizmet Piri Logo" />
+      <Link to={"/"} ><img src="/assets/hp2.png" alt="Hizmet Piri Logo" /></Link>
+      
       <ul className='nav-links' >
         <li> 
           <Link to={"/"} >

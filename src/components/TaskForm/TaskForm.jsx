@@ -1,10 +1,20 @@
 // src/components/TaskForm.jsx
 import React, { useState } from 'react';
 import "./TaskForm.scss"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useTaskStore from '../../Stores/taskStore';
+import SearchableDropdown from '../SearchableDropdown/SearchableDropdown';
+import { FaTurkishLiraSign } from "react-icons/fa6";
+import { tasks } from '../../Stores/tasks';
+import { AnahtarSub } from '../../Stores/AnahtarSub';
+import { ProjeSub } from '../../Stores/ProjeSub';
+import {DanismanlikSub} from "../../Stores/DanismanlikSub"
+import { UstaSub } from '../../Stores/UstaSub';
 
 const TaskForm = () => {
+
+  const { hizmet } = useParams()
+
   const navigate = useNavigate();
   const {
     subOptions,
@@ -26,6 +36,8 @@ const TaskForm = () => {
     setEmail,
     telNumber,
     setTelNumber,
+    pass,
+    setPass,
     paymentMethod,
     setPaymentMethod,
   } = useTaskStore();
@@ -48,14 +60,15 @@ const TaskForm = () => {
       useTaskStore.setState({
         subOptions: '',
         minBudget: 0,
-        maxBudget: 0,
-        duration: '',
+        maxBudget: null,
+        duration: null,
         startDate: '',
         description: '',
         name: '',
         surname: '',
         email: '',
         telNumber: '',
+        pass: '',
         paymentMethod: '',
       });
       // Redirect or perform additional actions on successful task submission
@@ -68,55 +81,77 @@ const TaskForm = () => {
     }
   };
 
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+    setSubOptions(selectedOption.value)
+    console.log(selectedOption.value)
+  };
+
   return (
     <div className="task-form-container">
-      <h2>Task Form</h2>
+      <h2>{hizmet}</h2>
       <div className="progress-bar-container">
         <div className="progress-bar" style={{ width: `${progress}%` }}></div>
       </div>
       <div className="form-content">
         {progress < 14.2857 && (
           <div>
-            <h3>Sub-options</h3>
-            <input
+            <h3>Proje Türleri</h3>
+            {/* <input
               type="text"
               placeholder="Sub-options"
               value={subOptions}
               onChange={(e) => setSubOptions(e.target.value)}
-            />
+            /> */}
+            {hizmet === "ANAHTAR TESLİM İNŞAAT- TADİLAT" && <SearchableDropdown options={AnahtarSub} onChange={handleChange} />}
+            {hizmet === "PROJE" && <SearchableDropdown options={ProjeSub} onChange={handleChange} />}
+            {hizmet === "DANIŞMANLIK" && <SearchableDropdown options={DanismanlikSub} onChange={handleChange} />}
+            {hizmet === "İŞÇİLİK-USTA" && <SearchableDropdown options={UstaSub} onChange={handleChange} />}
+            
+        
           </div>
         )}
         {progress >= 14.2857 && progress < 28.5714 && (
           <div>
-            <h3>Budget</h3>
-            <input
+            <h3>Bütçeniz:</h3>
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} ><input
               type="number"
-              placeholder="Minimum Budget"
+              placeholder="En az"
               value={minBudget}
               onChange={(e) => setBudget(e.target.value, maxBudget)}
             />
-            <input
+            <FaTurkishLiraSign /></div>
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} ><input
               type="number"
-              placeholder="Maximum Budget"
+              placeholder="En Fazla"
               value={maxBudget}
               onChange={(e) => setBudget(minBudget, e.target.value)}
             />
+            <FaTurkishLiraSign /></div>
+            
+            
           </div>
         )}
-        {progress >= 28.5714 && progress < 42.8571 && (
+        {progress >= 28.5714 && progress < 42.8570 && (
           <div>
-            <h3>Duration</h3>
-            <input
-              type="text"
-              placeholder="Duration"
+            <h3>Teklif Alma Süreci</h3>
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "10px"}} ><input
+              type="number"
+              placeholder="En fazla 10"
               value={duration}
+              min="1" 
+              max="10"
               onChange={(e) => setDuration(e.target.value)}
             />
+            <h4>Gün</h4></div>
+            
           </div>
         )}
-        {progress >= 42.8571 && progress < 57.1429 && (
+        {progress >= 42.8570 && progress < 57.1427 && (
           <div>
-            <h3>Start Date</h3>
+            <h3>Başlama Tarihi</h3>
             <input
               type="date"
               placeholder="Start Date"
@@ -125,28 +160,29 @@ const TaskForm = () => {
             />
           </div>
         )}
-        {progress >= 57.1429 && progress < 71.4286 && (
+        {progress >= 57.1427 && progress < 71.4285 && (
           <div>
-            <h3>Description</h3>
+            <h3>Açıklama</h3>
             <textarea
-              placeholder="Description"
+              placeholder="Lütfen Projeniz Hakkında Detaylı Bir Açıklama yazın"
               value={description}
+              minLength={250}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
         )}
-        {progress >= 71.4286 && progress < 85.7143 && (
+        {progress >= 71.4285 && progress < 85.7142 && (
           <div>
-            <h3>Registration</h3>
+            <h3>Kayıt Ol</h3>
             <input
               type="text"
-              placeholder="Name"
+              placeholder="Ad"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <input
               type="text"
-              placeholder="Surname"
+              placeholder="Soyad"
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
             />
@@ -158,13 +194,19 @@ const TaskForm = () => {
             />
             <input
               type="tel"
-              placeholder="Tel Number"
+              placeholder="Telefon Numarası"
               value={telNumber}
               onChange={(e) => setTelNumber(e.target.value)}
             />
+            <input
+              type="password"
+              placeholder="Şifre"
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+            />
           </div>
         )}
-        {progress >= 85.7143 && progress < 100 && (
+        {progress >= 85.7142 && progress < 100 && (
           <div>
             <h3>Payment</h3>
             <input
@@ -177,8 +219,8 @@ const TaskForm = () => {
         )}
       </div>
       <div className="form-buttons">
-        {progress > 0 && <button onClick={handlePrev}>Previous</button>}
-        {progress < 100 ? <button onClick={handleNext}>Next</button> : <button onClick={handleSubmit}>Submit Task</button>}
+        {progress > 0 && <button onClick={handlePrev}>Önceki Sayfa</button>}
+        {progress < 100 ? <button onClick={handleNext}>Devam et</button> : <button onClick={handleSubmit}>Submit Task</button>}
       </div>
     </div>
   );

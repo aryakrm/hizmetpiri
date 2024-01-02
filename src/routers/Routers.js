@@ -7,7 +7,9 @@ function Routers() {
     <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
       <Route path="home" element={<Home />} />
-      <Route path="/create-task" element={<TaskForm/>} />
+      <Route path="/create-task">
+      <Route path=":hizmet" element={<TaskForm />} />
+      </Route>
     </Routes>
   );
 }

@@ -20,6 +20,15 @@
                 cursor: pointer;
                 color: #d4af37;
             }
+            a{
+                color: white;
+            font-weight: 600;
+            text-decoration: none;
+            &:hover{
+                cursor: pointer;
+                color: #d4af37;
+            }
+            }
         }
         .nav-btn{
             border: 1px solid white;

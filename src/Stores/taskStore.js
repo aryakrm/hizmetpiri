@@ -2,28 +2,38 @@
 import create from 'zustand';
 
 const useTaskStore = create((set) => ({
-  // Step 1: Sub-options
+ 
   subOptions: '',
   setSubOptions: (subOptions) => set({ subOptions }),
+  
+  type: " ",
+  setType: (type) => set({ type }),
 
-  // Step 2: Budget
+  
   minBudget: null,
   maxBudget: null,
   setBudget: (minBudget, maxBudget) => set({ minBudget, maxBudget }),
 
-  // Step 3: Duration
+  
   duration: '',
   setDuration: (duration) => set({ duration }),
 
-  // Step 4: Start Date
+ 
   startDate: '',
   setStartDate: (startDate) => set({ startDate }),
 
-  // Step 5: Description
+ 
   description: '',
   setDescription: (description) => set({ description }),
 
-  // Step 6: Registration
+  
+
+  city: " ",
+  district: " ",
+  setCity: (city) => set({ city }),
+  setDistrict: (district) => set({ district }),
+
+
   name: '',
   surname: '',
   email: '',
@@ -35,7 +45,6 @@ const useTaskStore = create((set) => ({
   setTelNumber: (telNumber) => set({ telNumber }),
   setPass: (pass) => set({ pass }),
 
-  // Step 7: Payment
   paymentMethod: '',
   setPaymentMethod: (paymentMethod) => set({ paymentMethod }),
 }));

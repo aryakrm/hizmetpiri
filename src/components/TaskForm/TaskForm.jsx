@@ -7,18 +7,24 @@ import SearchableDropdown from '../SearchableDropdown/SearchableDropdown';
 import { FaTurkishLiraSign } from "react-icons/fa6";
 import { tasks } from '../../Stores/tasks';
 import { AnahtarSub } from '../../Stores/AnahtarSub';
+import { AnahtarType } from '../../Stores/AnahtarType';
 import { ProjeSub } from '../../Stores/ProjeSub';
 import {DanismanlikSub} from "../../Stores/DanismanlikSub"
 import { UstaSub } from '../../Stores/UstaSub';
+import CitySearch from '../CitySearch/CitySearch';
 
 const TaskForm = () => {
-
+  
   const { hizmet } = useParams()
+
+
 
   const navigate = useNavigate();
   const {
     subOptions,
     setSubOptions,
+    type,
+    setType,
     minBudget,
     maxBudget,
     setBudget,
@@ -28,6 +34,10 @@ const TaskForm = () => {
     setStartDate,
     description,
     setDescription,
+    city,
+    setCity,
+    district,
+    setDistrict,
     name,
     setName,
     surname,
@@ -59,11 +69,14 @@ const TaskForm = () => {
       // Reset the state (clear the form)
       useTaskStore.setState({
         subOptions: '',
-        minBudget: 0,
+        type: ' ',
+        minBudget: null,
         maxBudget: null,
         duration: null,
         startDate: '',
         description: '',
+        city: ' ',
+        district: ' ',
         name: '',
         surname: '',
         email: '',
@@ -74,7 +87,35 @@ const TaskForm = () => {
       // Redirect or perform additional actions on successful task submission
       // history.push('/');
       navigate("/create-task");
-      console.log(subOptions + " " + minBudget)
+      console.log(subOptions,
+        setSubOptions,
+        type,
+        setType,
+        minBudget,
+        maxBudget,
+        setBudget,
+        duration,
+        setDuration,
+        startDate,
+        setStartDate,
+        description,
+        setDescription,
+        city,
+        setCity,
+        district,
+        setDistrict,
+        name,
+        setName,
+        surname,
+        setSurname,
+        email,
+        setEmail,
+        telNumber,
+        setTelNumber,
+        pass,
+        setPass,
+        paymentMethod,
+        setPaymentMethod)
     } catch (error) {
       // Handle errors
       console.error('Error submitting task:', error);
@@ -82,11 +123,17 @@ const TaskForm = () => {
   };
 
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedType, setSelectedType] = useState(null);
 
   const handleChange = (selectedOption) => {
     setSelectedOption(selectedOption);
     setSubOptions(selectedOption.value)
     console.log(selectedOption.value)
+  };
+  const handleChangeType = (selectedType) => {
+    setSelectedType(selectedType);
+    setType(selectedType.value)
+    console.log(selectedType.value)
   };
 
   return (
@@ -105,14 +152,15 @@ const TaskForm = () => {
               value={subOptions}
               onChange={(e) => setSubOptions(e.target.value)}
             /> */}
-            {hizmet === "ANAHTAR TESLİM İNŞAAT- TADİLAT" && <SearchableDropdown options={AnahtarSub} onChange={handleChange} />}
-            {hizmet === "PROJE" && <SearchableDropdown options={ProjeSub} onChange={handleChange} />}
-            {hizmet === "DANIŞMANLIK" && <SearchableDropdown options={DanismanlikSub} onChange={handleChange} />}
-            {hizmet === "İŞÇİLİK-USTA" && <SearchableDropdown options={UstaSub} onChange={handleChange} />}
-            
-        
+            {hizmet === "ANAHTAR TESLİM İNŞAAT- TADİLAT" && <SearchableDropdown options={AnahtarSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
+            <br />
+            {hizmet === "ANAHTAR TESLİM İNŞAAT- TADİLAT" && <SearchableDropdown options={AnahtarType} onChange={handleChangeType} placeholder="Proje Türü Nedir?" />}
+            {hizmet === "PROJE" && <SearchableDropdown options={ProjeSub} onChange={handleChange} placeholder="Ne Yapılacak?" /> }
+            {hizmet === "DANIŞMANLIK" && <SearchableDropdown options={DanismanlikSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
+            {hizmet === "İŞÇİLİK-USTA" && <SearchableDropdown options={UstaSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
           </div>
         )}
+
         {progress >= 14.2857 && progress < 28.5714 && (
           <div>
             <h3>Bütçeniz:</h3>
@@ -130,8 +178,6 @@ const TaskForm = () => {
               onChange={(e) => setBudget(minBudget, e.target.value)}
             />
             <FaTurkishLiraSign /></div>
-            
-            
           </div>
         )}
         {progress >= 28.5714 && progress < 42.8570 && (
@@ -169,6 +215,12 @@ const TaskForm = () => {
               minLength={250}
               onChange={(e) => setDescription(e.target.value)}
             />
+          </div>
+        )}
+        {progress >= 57.1427 && progress < 71.4285 && (
+          <div>
+            <h3>Proje Nerede Yapılacak?</h3>
+            <CitySearch />
           </div>
         )}
         {progress >= 71.4285 && progress < 85.7142 && (

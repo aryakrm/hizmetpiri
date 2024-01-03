@@ -28,7 +28,7 @@ function Intro() {
       <div className="intro-left">
         <h1>DOĞRU HİZMETİ, HİZMET PİRİ İLE HEMEN BULUN...</h1>
         <div className="intro-search">
-          <SearchableDropdown options={tasks} onChange={handleChange} />
+          <SearchableDropdown options={tasks} onChange={handleChange} placeholder="Hangi Hizmeti Arıyorsunuz?" />
           <button type="submit" >
             <FaSearch />
           </button>

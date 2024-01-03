@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select';
 
-function SearchableDropdown({ options, onChange }) {
+function SearchableDropdown({ options, onChange, placeholder }) {
 
     const customStyles = {
         control: (provided) => ({
@@ -24,7 +24,7 @@ function SearchableDropdown({ options, onChange }) {
       isClearable
       onChange={onChange}
       styles={customStyles}
-      placeholder="Hangi Hizmeti Arıyorsunuz?"
+      placeholder={placeholder}
     />
   )
 }

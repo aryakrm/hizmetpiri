@@ -143,7 +143,7 @@ const TaskForm = () => {
         <div className="progress-bar" style={{ width: `${progress}%` }}></div>
       </div>
       <div className="form-content">
-        {progress < 14.2857 && (
+        {progress < 12.5 && (
           <div>
             <h3>Proje Türleri</h3>
             {/* <input
@@ -161,7 +161,7 @@ const TaskForm = () => {
           </div>
         )}
 
-        {progress >= 14.2857 && progress < 28.5714 && (
+        {progress >= 12.5 && progress < 25 && (
           <div>
             <h3>Bütçeniz:</h3>
             <div style={{display: "flex", justifyContent: "center", alignItems: "center"}} ><input
@@ -180,7 +180,7 @@ const TaskForm = () => {
             <FaTurkishLiraSign /></div>
           </div>
         )}
-        {progress >= 28.5714 && progress < 42.8570 && (
+        {progress >= 25 && progress < 37.5 && (
           <div>
             <h3>Teklif Alma Süreci</h3>
             <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "10px"}} ><input
@@ -195,7 +195,7 @@ const TaskForm = () => {
             
           </div>
         )}
-        {progress >= 42.8570 && progress < 57.1427 && (
+        {progress >= 37.5 && progress < 50 && (
           <div>
             <h3>Başlama Tarihi</h3>
             <input
@@ -206,7 +206,7 @@ const TaskForm = () => {
             />
           </div>
         )}
-        {progress >= 57.1427 && progress < 71.4285 && (
+        {progress >= 50 && progress < 62.5 && (
           <div>
             <h3>Açıklama</h3>
             <textarea
@@ -217,13 +217,13 @@ const TaskForm = () => {
             />
           </div>
         )}
-        {progress >= 57.1427 && progress < 71.4285 && (
+        {progress >= 62.5 && progress < 75 && (
           <div>
             <h3>Proje Nerede Yapılacak?</h3>
             <CitySearch />
           </div>
         )}
-        {progress >= 71.4285 && progress < 85.7142 && (
+        {progress >= 75 && progress < 87.5 && (
           <div>
             <h3>Kayıt Ol</h3>
             <input
@@ -258,7 +258,7 @@ const TaskForm = () => {
             />
           </div>
         )}
-        {progress >= 85.7142 && progress < 100 && (
+        {progress >= 87.5 && progress < 100 && (
           <div>
             <h3>Payment</h3>
             <input

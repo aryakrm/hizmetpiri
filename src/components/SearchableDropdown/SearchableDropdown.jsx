@@ -21,7 +21,6 @@ function SearchableDropdown({ options, onChange, placeholder }) {
     <Select
       options={options}
       isSearchable
-      isClearable
       onChange={onChange}
       styles={customStyles}
       placeholder={placeholder}

@@ -43,5 +43,4 @@ export const AnahtarType = [
     {value: "BAHÇE" , label: "BAHÇE"},
     {value: "PARK" , label: "PARK"},
     {value: "DIŞ CEPHE" , label: "DIŞ CEPHE"},
-    
 ]

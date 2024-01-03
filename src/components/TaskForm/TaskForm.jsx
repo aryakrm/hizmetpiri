@@ -207,12 +207,19 @@ const TaskForm = () => {
               value={subOptions}
               onChange={(e) => setSubOptions(e.target.value)}
             /> */}
-            {hizmet === "ANAHTAR TESLİM İNŞAAT- TADİLAT" && <SearchableDropdown options={AnahtarSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
-            <br />
-            {hizmet === "ANAHTAR TESLİM İNŞAAT- TADİLAT" && <SearchableDropdown options={AnahtarType} onChange={handleChangeType} placeholder="Proje Türü Nedir?" />}
-            {hizmet === "PROJE" && <SearchableDropdown options={ProjeSub} onChange={handleChange} placeholder="Ne Yapılacak?" /> }
-            {hizmet === "DANIŞMANLIK" && <SearchableDropdown options={DanismanlikSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
-            {hizmet === "İŞÇİLİK-USTA" && <SearchableDropdown options={UstaSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
+            {hizmet === "ANAHTAR TESLİM İNŞAAT- TADİLAT" && <SearchableDropdown style={{marginBottom: "1rem"}} options={AnahtarSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
+
+            {hizmet === "ANAHTAR TESLİM İNŞAAT- TADİLAT" && <SearchableDropdown style={{marginBottom: "1rem"}} options={AnahtarType} onChange={handleChangeType} placeholder="Proje Türü Nedir?" />}
+            
+            {hizmet === "PROJE" && <SearchableDropdown style={{marginBottom: "1rem"}} options={ProjeSub} onChange={handleChange} placeholder="Ne Yapılacak?" /> }
+            
+            {hizmet === "PROJE" && <SearchableDropdown style={{marginBottom: "1rem"}} options={AnahtarType} onChange={handleChangeType} placeholder="Proje Türü Nedir?" />}
+            
+            {hizmet === "DANIŞMANLIK" && <SearchableDropdown style={{marginBottom: "1rem"}} options={DanismanlikSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
+            
+            {hizmet === "İŞÇİLİK-USTA" && <SearchableDropdown style={{marginBottom: "1rem"}} options={UstaSub} onChange={handleChange} placeholder="Ne Yapılacak?" />}
+            
+            {hizmet === "İŞÇİLİK-USTA" && <SearchableDropdown style={{marginBottom: "1rem"}} options={AnahtarType} onChange={handleChangeType} placeholder="Proje Türü Nedir?" />}
           </div>
         )}
 

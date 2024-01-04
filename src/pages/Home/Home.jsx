@@ -5,8 +5,8 @@ import TaskForm from '../../components/TaskForm/TaskForm'
 function Home() {
   return (
     <section className='Home'>
-      <Intro/>
-      <TaskForm/>
+      <Intro />
+      <TaskForm />
     </section>
   )
 }

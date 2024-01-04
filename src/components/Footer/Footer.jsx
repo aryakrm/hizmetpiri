@@ -1,13 +1,8 @@
 import React from 'react'
-import "./Footer.scss"
+import './Footer.scss'
 
 function Footer() {
-  return (
-    <section className='Footer' >
-      
-    </section>
-  )
+  return <section className='Footer'></section>
 }
-
 
 export default Footer

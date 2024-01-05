@@ -13,7 +13,8 @@ import { ProjeSub } from '../../Stores/ProjeSub'
 import { DanismanlikSub } from '../../Stores/DanismanlikSub'
 import { UstaSub } from '../../Stores/UstaSub'
 import CitySearch from '../CitySearch/CitySearch'
-
+import { YazilimSub } from '../../Stores/YazilimSub'
+import { YazilimType } from '../../Stores/YazilimType'
 const TaskForm = () => {
   const { hizmet } = useParams()
 
@@ -25,6 +26,8 @@ const TaskForm = () => {
     setType,
     area,
     setArea,
+    pages,
+    setPages,
     minBudget,
     maxBudget,
     setBudget,
@@ -77,6 +80,7 @@ const TaskForm = () => {
         subOptions: '',
         type: ' ',
         area: null,
+        pages: null,
         minBudget: null,
         maxBudget: null,
         duration: null,
@@ -175,53 +179,64 @@ const TaskForm = () => {
   const [calculatedPrice, setCalculatedPrice] = useState(0)
 
   useEffect(() => {
-    if (area === null) {
+    if (hizmet !== 'YAZILIM' && area === null) {
       setCalculatedPrice(0)
     } else if (
+      hizmet !== 'YAZILIM' &&
       progress >= 11.11 &&
       progress < 22.22 &&
       area >= 0 &&
       area < 25
     ) {
       setCalculatedPrice(25)
-    } else if (area >= 10 && area <= 200) {
+    } else if (hizmet !== 'YAZILIM' && area >= 10 && area <= 200) {
       setCalculatedPrice(Math.floor(area * 1))
-    } else if (area > 200 && area <= 350) {
+    } else if (hizmet !== 'YAZILIM' && area > 200 && area <= 350) {
       setCalculatedPrice(Math.floor(area * 0.88))
-    } else if (area > 350 && area <= 400) {
+    } else if (hizmet !== 'YAZILIM' && area > 350 && area <= 400) {
       setCalculatedPrice(Math.floor(area * 0.8))
-    } else if (area > 400 && area <= 500) {
+    } else if (hizmet !== 'YAZILIM' && area > 400 && area <= 500) {
       setCalculatedPrice(Math.floor(area * 0.7))
-    } else if (area > 500 && area <= 1000) {
+    } else if (hizmet !== 'YAZILIM' && area > 500 && area <= 1000) {
       setCalculatedPrice(Math.floor(area * 0.4))
-    } else if (area > 1000 && area <= 2000) {
+    } else if (hizmet !== 'YAZILIM' && area > 1000 && area <= 2000) {
       setCalculatedPrice(Math.floor(area * 0.25))
-    } else if (area > 2000 && area <= 2500) {
+    } else if (hizmet !== 'YAZILIM' && area > 2000 && area <= 2500) {
       setCalculatedPrice(Math.floor(area * 0.21))
-    } else if (area > 2500 && area <= 3000) {
+    } else if (hizmet !== 'YAZILIM' && area > 2500 && area <= 3000) {
       setCalculatedPrice(Math.floor(area * 0.18))
-    } else if (area > 3000 && area <= 3500) {
+    } else if (hizmet !== 'YAZILIM' && area > 3000 && area <= 3500) {
       setCalculatedPrice(Math.floor(area * 0.16))
-    } else if (area > 3500 && area <= 4000) {
+    } else if (hizmet !== 'YAZILIM' && area > 3500 && area <= 4000) {
       setCalculatedPrice(Math.floor(area * 0.15))
-    } else if (area > 4000 && area <= 4500) {
+    } else if (hizmet !== 'YAZILIM' && area > 4000 && area <= 4500) {
       setCalculatedPrice(Math.floor(area * 0.14))
-    } else if (area > 4500 && area <= 5000) {
+    } else if (hizmet !== 'YAZILIM' && area > 4500 && area <= 5000) {
       setCalculatedPrice(Math.floor(area * 0.13))
-    } else if (area > 5000 && area <= 6000) {
+    } else if (hizmet !== 'YAZILIM' && area > 5000 && area <= 6000) {
       setCalculatedPrice(Math.floor(area * 0.12))
-    } else if (area > 6000 && area <= 7000) {
+    } else if (hizmet !== 'YAZILIM' && area > 6000 && area <= 7000) {
       setCalculatedPrice(Math.floor(area * 0.11))
-    } else if (area > 7000 && area <= 8000) {
+    } else if (hizmet !== 'YAZILIM' && area > 7000 && area <= 8000) {
       setCalculatedPrice(Math.floor(area * 0.1))
-    } else if (area > 8000 && area <= 9000) {
+    } else if (hizmet !== 'YAZILIM' && area > 8000 && area <= 9000) {
       setCalculatedPrice(Math.floor(area * 0.1))
-    } else if (area > 9000 && area <= 10000) {
+    } else if (hizmet !== 'YAZILIM' && area > 9000 && area <= 10000) {
       setCalculatedPrice(Math.floor(area * 0.1))
-    } else {
+    } else if (hizmet !== 'YAZILIM' && area < 10000) {
       setCalculatedPrice(1500)
     }
   }, [area])
+
+  useEffect(() => {
+    if (hizmet === 'YAZILIM' && pages === null) {
+      setCalculatedPrice(0)
+    } else if (hizmet === 'YAZILIM' && pages > 0 && pages <= 10) {
+      setCalculatedPrice(pages * 20)
+    } else if (hizmet === 'YAZILIM' && pages > 10) {
+      setCalculatedPrice(300)
+    }
+  }, [pages])
 
   return (
     <div className='task-form-container'>
@@ -314,33 +329,81 @@ const TaskForm = () => {
                 placeholder='Proje Türü Nedir?'
               />
             )}
+
+            {hizmet === 'YAZILIM' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={YazilimSub}
+                onChange={handleChange}
+                placeholder='Ne Yapılacak?'
+              />
+            )}
+            {hizmet === 'YAZILIM' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={YazilimType}
+                onChange={handleChangeType}
+                placeholder='Proje Hangi Yazılım Dili İle Olacak?'
+              />
+            )}
           </div>
         )}
 
-        {progress >= 11.11 && progress < 22.22 && (
+        {(progress >= 11.11 &&
+          progress < 22.22 &&
+          hizmet === 'ANAHTAR TESLİM İNŞAAT- TADİLAT') ||
+          hizmet === 'PROJE' ||
+          hizmet === 'DANIŞMANLIK' ||
+          (hizmet === 'İŞÇİLİK-USTA' && (
+            <div>
+              <h3>
+                Projeniz Kaç Metre Kare (
+                <b>
+                  m<sup>2</sup>
+                </b>
+                ) ?
+              </h3>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <input
+                  type='number'
+                  placeholder='150'
+                  min='1'
+                  value={area}
+                  onChange={(e) => setArea(e.target.value, area)}
+                />
+                <img
+                  style={{ width: '2rem' }}
+                  src='/assets/area.png'
+                  alt='m2'
+                />
+              </div>
+            </div>
+          ))}
+        {progress >= 11.11 && progress < 22.22 && hizmet === 'YAZILIM' && (
           <div>
-            <h3>
-              Projeniz Kaç Metre Kare (
-              <b>
-                m<sup>2</sup>
-              </b>
-              ) ?
-            </h3>
+            <h3>Projeniz Kaç Sayfa Olacak?</h3>
             <div
               style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                gap: '10px',
               }}
             >
               <input
                 type='number'
-                placeholder='150'
+                placeholder='5'
                 min='1'
-                value={area}
-                onChange={(e) => setArea(e.target.value, area)}
+                value={pages}
+                onChange={(e) => setPages(e.target.value, pages)}
               />
-              <img style={{ width: '2rem' }} src='/assets/area.png' alt='m2' />
+              <p>Sayfa</p>
             </div>
           </div>
         )}
@@ -383,7 +446,7 @@ const TaskForm = () => {
 
         {progress >= 33.33 && progress < 44.44 && (
           <div>
-            <h3>Teklif Alma Süreci</h3>
+            <h3>Teklif Alma Süresi</h3>
             <div
               style={{
                 display: 'flex',
@@ -406,7 +469,7 @@ const TaskForm = () => {
         )}
         {progress >= 44.44 && progress < 55.55 && (
           <div>
-            <h3>Başlama Tarihi</h3>
+            <h3>İş Başlama Tarihi:</h3>
             <input
               type='date'
               placeholder='Start Date'

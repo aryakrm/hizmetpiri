@@ -11,6 +11,9 @@ const useTaskStore = create((set) => ({
   area: null,
   setArea: (area) => set({ area }),
 
+  pages: null,
+  setPages: (pages) => set({ pages }),
+
   minBudget: null,
   maxBudget: null,
   setBudget: (minBudget, maxBudget) => set({ minBudget, maxBudget }),

@@ -6,4 +6,5 @@ export const tasks = [
   { value: 'PROJE', label: 'PROJE' },
   { value: 'DANIŞMANLIK', label: 'DANIŞMANLIK' },
   { value: 'İŞÇİLİK-USTA', label: 'İŞÇİLİK-USTA' },
+  { value: 'YAZILIM', label: 'YAZILIM' },
 ]

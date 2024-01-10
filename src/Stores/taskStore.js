@@ -11,6 +11,12 @@ const useTaskStore = create((set) => ({
   area: null,
   setArea: (area) => set({ area }),
 
+  piece: null,
+  setPiece: (piece) => set({ piece }),
+
+  days: null,
+  setDays: (days) => set({ days }),
+
   pages: null,
   setPages: (pages) => set({ pages }),
 

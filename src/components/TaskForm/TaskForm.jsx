@@ -15,6 +15,9 @@ import { UstaSub } from '../../Stores/UstaSub'
 import CitySearch from '../CitySearch/CitySearch'
 import { YazilimSub } from '../../Stores/YazilimSub'
 import { YazilimType } from '../../Stores/YazilimType'
+import { DekorasyonSub } from '../../Stores/DekorasyonSub'
+import { MobilyaSub } from '../../Stores/MobilyaSub'
+import { OrganizasyonSub } from '../../Stores/OrganizasyonSub'
 const TaskForm = () => {
   const { hizmet } = useParams()
 
@@ -26,8 +29,12 @@ const TaskForm = () => {
     setType,
     area,
     setArea,
+    piece,
+    setPiece,
     pages,
     setPages,
+    days,
+    setDays,
     minBudget,
     maxBudget,
     setBudget,
@@ -81,6 +88,8 @@ const TaskForm = () => {
         type: ' ',
         area: null,
         pages: null,
+        piece: null,
+        days: null,
         minBudget: null,
         maxBudget: null,
         duration: null,
@@ -231,12 +240,94 @@ const TaskForm = () => {
   useEffect(() => {
     if (hizmet === 'YAZILIM' && pages === null) {
       setCalculatedPrice(0)
-    } else if (hizmet === 'YAZILIM' && pages > 0 && pages <= 10) {
+    } else if (hizmet === 'YAZILIM' && pages >= 0 && pages <= 10) {
       setCalculatedPrice(pages * 20)
     } else if (hizmet === 'YAZILIM' && pages > 10) {
       setCalculatedPrice(300)
     }
   }, [pages])
+
+  useEffect(() => {
+    if (hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' && piece === null) {
+      setCalculatedPrice(0)
+    } else if (
+      hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' &&
+      piece >= 0 &&
+      piece <= 1
+    ) {
+      setCalculatedPrice(25)
+    } else if (
+      hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' &&
+      piece >= 2 &&
+      piece < 5
+    ) {
+      setCalculatedPrice(piece * 15)
+    } else if (
+      hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' &&
+      piece >= 5 &&
+      piece < 10
+    ) {
+      setCalculatedPrice(piece * 11)
+    } else if (
+      hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' &&
+      piece >= 10 &&
+      piece < 20
+    ) {
+      setCalculatedPrice(piece * 10)
+    } else if (
+      hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' &&
+      piece >= 20 &&
+      piece < 30
+    ) {
+      setCalculatedPrice(piece * 8)
+    } else if (
+      hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' &&
+      piece >= 30 &&
+      piece < 40
+    ) {
+      setCalculatedPrice(piece * 7)
+    } else if (
+      hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' &&
+      piece >= 40 &&
+      piece < 50
+    ) {
+      setCalculatedPrice(piece * 7)
+    } else if (
+      hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' &&
+      piece >= 50 &&
+      piece < 100
+    ) {
+      setCalculatedPrice(piece * 6)
+    } else if (hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' && piece >= 100) {
+      setCalculatedPrice(piece * 5)
+    }
+  }, [piece])
+
+  useEffect(() => {
+    if (hizmet === 'ORGANİZASYON' && days === null) {
+      setCalculatedPrice(0)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 0 && days <= 1) {
+      setCalculatedPrice(25)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 2 && days < 3) {
+      setCalculatedPrice(days * 15)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 3 && days < 4) {
+      setCalculatedPrice(days * 12)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 4 && days < 5) {
+      setCalculatedPrice(days * 10)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 5 && days < 6) {
+      setCalculatedPrice(days * 9)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 6 && days < 7) {
+      setCalculatedPrice(days * 8)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 7 && days < 8) {
+      setCalculatedPrice(days * 7)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 8 && days < 9) {
+      setCalculatedPrice(days * 6.5)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 9 && days < 10) {
+      setCalculatedPrice(days * 6)
+    } else if (hizmet === 'ORGANİZASYON' && days >= 10) {
+      setCalculatedPrice(days * 5)
+    }
+  }, [days])
 
   return (
     <div className='task-form-container'>
@@ -346,45 +437,78 @@ const TaskForm = () => {
                 placeholder='Proje Hangi Yazılım Dili İle Olacak?'
               />
             )}
+            {hizmet === 'DEKORASYON DANIŞMANLIĞI' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={DekorasyonSub}
+                onChange={handleChange}
+                placeholder='Ne Yapılacak?'
+              />
+            )}
+            {hizmet === 'DEKORASYON DANIŞMANLIĞI' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={AnahtarType}
+                onChange={handleChangeType}
+                placeholder='Proje Türü Nedir?'
+              />
+            )}
+            {hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={MobilyaSub}
+                onChange={handleChange}
+                placeholder='Ne Yapılacak?'
+              />
+            )}
+            {hizmet === 'ORGANİZASYON' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={OrganizasyonSub}
+                onChange={handleChange}
+                placeholder='Ne Yapılacak?'
+              />
+            )}
           </div>
         )}
 
-        {(progress >= 11.11 &&
-          progress < 22.22 &&
-          hizmet === 'ANAHTAR TESLİM İNŞAAT- TADİLAT') ||
+        {hizmet === 'ANAHTAR TESLİM İNŞAAT- TADİLAT' ||
           hizmet === 'PROJE' ||
           hizmet === 'DANIŞMANLIK' ||
-          (hizmet === 'İŞÇİLİK-USTA' && (
-            <div>
-              <h3>
-                Projeniz Kaç Metre Kare (
-                <b>
-                  m<sup>2</sup>
-                </b>
-                ) ?
-              </h3>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <input
-                  type='number'
-                  placeholder='150'
-                  min='1'
-                  value={area}
-                  onChange={(e) => setArea(e.target.value, area)}
-                />
-                <img
-                  style={{ width: '2rem' }}
-                  src='/assets/area.png'
-                  alt='m2'
-                />
+          hizmet === 'İŞÇİLİK-USTA' ||
+          (hizmet === 'DEKORASYON DANIŞMANLIĞI' &&
+            progress >= 11.11 &&
+            progress < 22.22 && (
+              <div>
+                <h3>
+                  Projeniz Kaç Metre Kare (
+                  <b>
+                    m<sup>2</sup>
+                  </b>
+                  ) ?
+                </h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <input
+                    type='number'
+                    placeholder='150'
+                    min='1'
+                    value={area}
+                    onChange={(e) => setArea(e.target.value, area)}
+                  />
+                  <img
+                    style={{ width: '2rem' }}
+                    src='/assets/area.png'
+                    alt='m2'
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         {progress >= 11.11 && progress < 22.22 && hizmet === 'YAZILIM' && (
           <div>
             <h3>Projeniz Kaç Sayfa Olacak?</h3>
@@ -404,6 +528,54 @@ const TaskForm = () => {
                 onChange={(e) => setPages(e.target.value, pages)}
               />
               <p>Sayfa</p>
+            </div>
+          </div>
+        )}
+
+        {progress >= 11.11 &&
+          progress < 22.22 &&
+          hizmet === 'MOBİLYA VE DÖŞEMELİ İMALAT' && (
+            <div>
+              <h3>Kaç adet ürün istiyorsunuz?</h3>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '10px',
+                }}
+              >
+                <input
+                  type='number'
+                  placeholder='5'
+                  min='1'
+                  value={piece}
+                  onChange={(e) => setPiece(e.target.value, piece)}
+                />
+                <p>adet</p>
+              </div>
+            </div>
+          )}
+
+        {progress >= 11.11 && progress < 22.22 && hizmet === 'ORGANİZASYON' && (
+          <div>
+            <h3>Organizasyon Kaç Gün Sürecek?</h3>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              <input
+                type='number'
+                placeholder='5'
+                min='1'
+                value={days}
+                onChange={(e) => setDays(e.target.value, days)}
+              />
+              <p>Gün</p>
             </div>
           </div>
         )}

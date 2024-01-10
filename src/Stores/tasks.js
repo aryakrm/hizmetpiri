@@ -7,4 +7,7 @@ export const tasks = [
   { value: 'DANIŞMANLIK', label: 'DANIŞMANLIK' },
   { value: 'İŞÇİLİK-USTA', label: 'İŞÇİLİK-USTA' },
   { value: 'YAZILIM', label: 'YAZILIM' },
+  { value: 'DEKORASYON DANIŞMANLIĞI', label: 'DEKORASYON DANIŞMANLIĞI' },
+  { value: 'MOBİLYA VE DÖŞEMELİ İMALAT', label: 'MOBİLYA VE DÖŞEMELİ İMALAT' },
+  { value: 'ORGANİZASYON', label: 'ORGANİZASYON' },
 ]

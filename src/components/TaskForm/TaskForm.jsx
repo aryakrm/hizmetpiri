@@ -18,6 +18,8 @@ import { YazilimType } from '../../Stores/YazilimType'
 import { DekorasyonSub } from '../../Stores/DekorasyonSub'
 import { MobilyaSub } from '../../Stores/MobilyaSub'
 import { OrganizasyonSub } from '../../Stores/OrganizasyonSub'
+import { GelisimSub } from '../../Stores/GelisimSub'
+
 const TaskForm = () => {
   const { hizmet } = useParams()
 
@@ -35,6 +37,8 @@ const TaskForm = () => {
     setPages,
     days,
     setDays,
+    people,
+    setPeople,
     minBudget,
     maxBudget,
     setBudget,
@@ -90,6 +94,7 @@ const TaskForm = () => {
         pages: null,
         piece: null,
         days: null,
+        people: null,
         minBudget: null,
         maxBudget: null,
         duration: null,
@@ -329,6 +334,86 @@ const TaskForm = () => {
     }
   }, [days])
 
+  useEffect(() => {
+    if (hizmet === 'GELİŞİM DANIŞMANLIĞI' && people === null) {
+      setCalculatedPrice(0)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 0 &&
+      people <= 1
+    ) {
+      setCalculatedPrice(25)
+    } else if (hizmet === 'GELİŞİM DANIŞMANLIĞI' && people >= 2 && people < 3) {
+      setCalculatedPrice(people * 15)
+    } else if (hizmet === 'GELİŞİM DANIŞMANLIĞI' && people >= 3 && people < 4) {
+      setCalculatedPrice(people * 14)
+    } else if (hizmet === 'GELİŞİM DANIŞMANLIĞI' && people >= 4 && people < 5) {
+      setCalculatedPrice(people * 13)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 5 &&
+      people < 10
+    ) {
+      setCalculatedPrice(people * 12)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 10 &&
+      people < 20
+    ) {
+      setCalculatedPrice(people * 10)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 20 &&
+      people < 30
+    ) {
+      setCalculatedPrice(people * 9)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 30 &&
+      people < 40
+    ) {
+      setCalculatedPrice(people * 7)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 40 &&
+      people < 50
+    ) {
+      setCalculatedPrice(people * 6)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 50 &&
+      people < 100
+    ) {
+      setCalculatedPrice(people * 5)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 50 &&
+      people < 100
+    ) {
+      setCalculatedPrice(people * 5)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 100 &&
+      people < 200
+    ) {
+      setCalculatedPrice(people * 3)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 200 &&
+      people < 500
+    ) {
+      setCalculatedPrice(people * 1.7)
+    } else if (
+      hizmet === 'GELİŞİM DANIŞMANLIĞI' &&
+      people >= 500 &&
+      people < 1000
+    ) {
+      setCalculatedPrice(people * 1)
+    } else if (hizmet === 'GELİŞİM DANIŞMANLIĞI' && people >= 1000) {
+      setCalculatedPrice(people * 0.6)
+    }
+  }, [people])
+
   return (
     <div className='task-form-container'>
       <div
@@ -469,6 +554,14 @@ const TaskForm = () => {
                 placeholder='Ne Yapılacak?'
               />
             )}
+            {hizmet === 'GELİŞİM DANIŞMANLIĞI' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={GelisimSub}
+                onChange={handleChange}
+                placeholder='Ne Yapılacak?'
+              />
+            )}
           </div>
         )}
 
@@ -579,6 +672,30 @@ const TaskForm = () => {
             </div>
           </div>
         )}
+        {progress >= 11.11 &&
+          progress < 22.22 &&
+          hizmet === 'GELİŞİM DANIŞMANLIĞI' && (
+            <div>
+              <h3>Kaç Kişiye Danışmanlık İstiyorsunuz?</h3>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '10px',
+                }}
+              >
+                <input
+                  type='number'
+                  placeholder='5'
+                  min='1'
+                  value={people}
+                  onChange={(e) => setPeople(e.target.value, people)}
+                />
+                <p>Kişi</p>
+              </div>
+            </div>
+          )}
 
         {progress >= 22.22 && progress < 33.33 && (
           <div>

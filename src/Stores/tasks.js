@@ -10,4 +10,5 @@ export const tasks = [
   { value: 'DEKORASYON DANIŞMANLIĞI', label: 'DEKORASYON DANIŞMANLIĞI' },
   { value: 'MOBİLYA VE DÖŞEMELİ İMALAT', label: 'MOBİLYA VE DÖŞEMELİ İMALAT' },
   { value: 'ORGANİZASYON', label: 'ORGANİZASYON' },
+  { value: 'GELİŞİM DANIŞMANLIĞI', label: 'GELİŞİM DANIŞMANLIĞI' },
 ]

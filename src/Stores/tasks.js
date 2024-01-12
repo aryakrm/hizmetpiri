@@ -11,4 +11,6 @@ export const tasks = [
   { value: 'MOBİLYA VE DÖŞEMELİ İMALAT', label: 'MOBİLYA VE DÖŞEMELİ İMALAT' },
   { value: 'ORGANİZASYON', label: 'ORGANİZASYON' },
   { value: 'GELİŞİM DANIŞMANLIĞI', label: 'GELİŞİM DANIŞMANLIĞI' },
+  { value: 'DIŞ CEPHE -  REKLAM', label: 'DIŞ CEPHE -  REKLAM' },
+  { value: 'ÖZEL DERS', label: 'ÖZEL DERS' },
 ]

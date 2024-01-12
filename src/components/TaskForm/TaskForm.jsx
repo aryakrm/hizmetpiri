@@ -19,6 +19,8 @@ import { DekorasyonSub } from '../../Stores/DekorasyonSub'
 import { MobilyaSub } from '../../Stores/MobilyaSub'
 import { OrganizasyonSub } from '../../Stores/OrganizasyonSub'
 import { GelisimSub } from '../../Stores/GelisimSub'
+import { DisSub } from '../../Stores/DisSub'
+import { OzelSub } from '../../Stores/OzelSub'
 
 const TaskForm = () => {
   const { hizmet } = useParams()
@@ -39,6 +41,8 @@ const TaskForm = () => {
     setDays,
     people,
     setPeople,
+    students,
+    setStudents,
     minBudget,
     maxBudget,
     setBudget,
@@ -95,6 +99,7 @@ const TaskForm = () => {
         piece: null,
         days: null,
         people: null,
+        students: null,
         minBudget: null,
         maxBudget: null,
         duration: null,
@@ -414,6 +419,28 @@ const TaskForm = () => {
     }
   }, [people])
 
+  useEffect(() => {
+    if (hizmet === 'ÖZEL DERS' && students === null) {
+      setCalculatedPrice(0)
+    } else if (hizmet === 'ÖZEL DERS' && students >= 0 && students < 3) {
+      setCalculatedPrice(students * 50)
+    } else if (hizmet === 'ÖZEL DERS' && students >= 3 && students < 4) {
+      setCalculatedPrice(students * 40)
+    } else if (hizmet === 'ÖZEL DERS' && students >= 4 && students < 5) {
+      setCalculatedPrice(students * 35)
+    } else if (hizmet === 'ÖZEL DERS' && students >= 5 && students < 50) {
+      setCalculatedPrice(students * 30)
+    } else if (hizmet === 'ÖZEL DERS' && students >= 50 && students < 100) {
+      setCalculatedPrice(students * 20)
+    } else if (hizmet === 'ÖZEL DERS' && students >= 100 && students < 500) {
+      setCalculatedPrice(students * 15)
+    } else if (hizmet === 'ÖZEL DERS' && students >= 500 && students < 1000) {
+      setCalculatedPrice(students * 3.5)
+    } else if (hizmet === 'ÖZEL DERS' && students >= 1000) {
+      setCalculatedPrice(students * 2)
+    }
+  }, [students])
+
   return (
     <div className='task-form-container'>
       <div
@@ -562,47 +589,72 @@ const TaskForm = () => {
                 placeholder='Ne Yapılacak?'
               />
             )}
+            {hizmet === 'DIŞ CEPHE -  REKLAM' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={DisSub}
+                onChange={handleChange}
+                placeholder='Ne Yapılacak?'
+              />
+            )}
+            {hizmet === 'DIŞ CEPHE -  REKLAM' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={AnahtarType}
+                onChange={handleChangeType}
+                placeholder='Proje Türü Nedir?'
+              />
+            )}
+            {hizmet === 'ÖZEL DERS' && (
+              <SearchableDropdown
+                style={{ marginBottom: '1rem' }}
+                options={OzelSub}
+                onChange={handleChange}
+                placeholder='Ne Yapılacak?'
+              />
+            )}
           </div>
         )}
 
-        {hizmet === 'ANAHTAR TESLİM İNŞAAT- TADİLAT' ||
+        {(hizmet === 'ANAHTAR TESLİM İNŞAAT- TADİLAT' ||
           hizmet === 'PROJE' ||
           hizmet === 'DANIŞMANLIK' ||
           hizmet === 'İŞÇİLİK-USTA' ||
-          (hizmet === 'DEKORASYON DANIŞMANLIĞI' &&
-            progress >= 11.11 &&
-            progress < 22.22 && (
-              <div>
-                <h3>
-                  Projeniz Kaç Metre Kare (
-                  <b>
-                    m<sup>2</sup>
-                  </b>
-                  ) ?
-                </h3>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <input
-                    type='number'
-                    placeholder='150'
-                    min='1'
-                    value={area}
-                    onChange={(e) => setArea(e.target.value, area)}
-                  />
-                  <img
-                    style={{ width: '2rem' }}
-                    src='/assets/area.png'
-                    alt='m2'
-                  />
-                </div>
+          hizmet === 'DEKORASYON DANIŞMANLIĞI' ||
+          hizmet === 'DIŞ CEPHE -  REKLAM') &&
+          progress >= 11.11 &&
+          progress < 22.22 && (
+            <div>
+              <h3>
+                Projeniz Kaç Metre Kare (
+                <b>
+                  m<sup>2</sup>
+                </b>
+                ) ?
+              </h3>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <input
+                  type='number'
+                  placeholder='150'
+                  min='1'
+                  value={area}
+                  onChange={(e) => setArea(e.target.value, area)}
+                />
+                <img
+                  style={{ width: '2rem' }}
+                  src='/assets/area.png'
+                  alt='m2'
+                />
               </div>
-            ))}
-        {progress >= 11.11 && progress < 22.22 && hizmet === 'YAZILIM' && (
+            </div>
+          )}
+        {hizmet === 'YAZILIM' && progress >= 11.11 && progress < 22.22 && (
           <div>
             <h3>Projeniz Kaç Sayfa Olacak?</h3>
             <div
@@ -696,6 +748,29 @@ const TaskForm = () => {
               </div>
             </div>
           )}
+
+        {progress >= 11.11 && progress < 22.22 && hizmet === 'ÖZEL DERS' && (
+          <div>
+            <h3>Kaç Öğrenci Ders Alacak?</h3>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              <input
+                type='number'
+                placeholder='5'
+                min='1'
+                value={students}
+                onChange={(e) => setStudents(e.target.value, students)}
+              />
+              <p>Öğrenci</p>
+            </div>
+          </div>
+        )}
 
         {progress >= 22.22 && progress < 33.33 && (
           <div>

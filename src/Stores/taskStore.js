@@ -23,6 +23,9 @@ const useTaskStore = create((set) => ({
   people: null,
   setPeople: (people) => set({ people }),
 
+  students: null,
+  setStudents: (students) => set({ students }),
+
   minBudget: null,
   maxBudget: null,
   setBudget: (minBudget, maxBudget) => set({ minBudget, maxBudget }),

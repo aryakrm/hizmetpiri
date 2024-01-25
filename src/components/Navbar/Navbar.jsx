@@ -85,7 +85,7 @@ function Navbar() {
           </li>
         )}
 
-        {authUser && <p>{authUser.email}</p>}
+        {authUser && <p style={{ color: '#d4af37' }}>{authUser.email}</p>}
         {authUser && (
           <li className='nav-btn' onClick={signOut}>
             Çıkış
